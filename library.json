@@ -1,7 +1,7 @@
 {
- "name": "ED_",
+ "name": "ED_JSON",
   "version": "1.0.0",
-  "description": "",
+  "description": "JSON library for ESP32",
   "keywords": [ "ESP32"],
   "frameworks": ["espidf"],
   "platforms": ["espressif32"],
