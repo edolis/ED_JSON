@@ -5,6 +5,8 @@
 #include <vector>
 #include "cJSON.h"
 #include <variant>
+#include <optional>
+#include <unordered_map>
 
 
 
@@ -67,6 +69,8 @@ class JsonEncoder {
         ~JsonEncoder(); //don't want it to shouw up in intellisense method list.
     /** wraps an existing cJSON object in the helper */
     explicit JsonEncoder(cJSON* existing);
+    JsonEncoder(const JsonEncoder& other);
+    JsonEncoder& operator=(const JsonEncoder& other) ;
 
     void add(const std::string &key, const JsonValue &value);
     /// @brief adds a json object.
@@ -77,11 +81,32 @@ class JsonEncoder {
     // Unified accessor method
     JsonValue getValue(const std::string& key) const;
     JsonEncoder getObject(const std::string &key) const;
-    // returns the encoded Json string
+    // returns the encoded Json string, formatted for easier readability
     std::string getJson();
+//gets the compact unformatted Json string
+    std::string getCompactJson();
+    JsonEncoder(const std::string &jsonStr);
+    std::optional<int> getInt(const std::string& key) const;
+    std::optional<std::string> getString(const std::string &key) const;
+    bool isValidJson() const;
+    bool isArray() const;
 
-    private:
-    cJSON* root;
+    JsonEncoder getArrayItem(int index) const;
+    int getArraySize() const;
+    // resets by deleting the internal object
+    void reset(const std::string &jsonStr);
+    //changes che Json string parsed by the encoder
+    void setJson(const std::string &jsonStr);
+    //wraps a given json in [] turning into an array
+    void wrapRootInArray();
+    // unwraps a json from redundant array enclosures generated during transmissiom of data
+    JsonEncoder unwrapNestedArray() const;
+//parses a Json string into a map<string,string>
+    static std::unordered_map<std::string, std::string> parseJsonToMap(const std::string &jsonStr);
+
+private:
+    cJSON *root=nullptr;
+
 };
 
 
