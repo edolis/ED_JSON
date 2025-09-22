@@ -1,12 +1,17 @@
 {
- "name": "ED_JSON",
-  "version": "1.0.0",
+  "name": "ED_JSON",
+  "version": "1.0.0-CORE-1+g1799224",
   "description": "JSON library for ESP32",
-  "keywords": [ "ESP32"],
-  "frameworks": ["espidf"],
-  "platforms": ["espressif32"],
+  "keywords": [
+    "ESP32"
+  ],
+  "frameworks": [
+    "espidf"
+  ],
+  "platforms": [
+    "espressif32"
+  ],
   "build": {
     "srcFilter": "+<*>"
   }
 }
-
